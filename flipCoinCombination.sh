@@ -16,7 +16,8 @@ head=`echo ${result[@]} | tr ' ' '\n' | sort -n | uniq -c | head -1 | awk '{prin
 tail=`echo ${result[@]} | tr ' ' '\n' | sort -n | uniq -c | tail -1 | awk '{print $1}'`
 
 tail_win_times=$tail
-echo percent=$((tail_win_times/i*100))
+percentage_tail=`echo $tail_win_times | awk '{print $1/50*100}'`
 
 head_win_times=$head
-echo percent=$((head_win_times/total*100))
+percentage_head=`echo $head_win_times | awk '{print $1/50*100}'`
+
