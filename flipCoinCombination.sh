@@ -1,13 +1,22 @@
 #!/bin/bash -x
 
-heads=0;
-tails=1;
+#head=0;
+#tail=1;
+total=50;
 
-result=$((RANDOM%2))
+declare -A result
 
-if [[ $result -eq $heads ]]
-	then
-		echo heads
-	else
-		echo tails
-fi
+for ((i=1;i<=$total;i++))
+do
+	result[$i]=$((RANDOM%2))
+done
+
+head=`echo ${result[@]} | tr ' ' '\n' | sort -n | uniq -c | head -1 | awk '{print $1}'`
+
+tail=`echo ${result[@]} | tr ' ' '\n' | sort -n | uniq -c | tail -1 | awk '{print $1}'`
+
+tail_win_times=$tail
+echo percent=$((tail_win_times/i*100))
+
+head_win_times=$head
+echo percent=$((head_win_times/total*100))
